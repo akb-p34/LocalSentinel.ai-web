@@ -1,31 +1,34 @@
-import { Header } from "./components/Header";
-import { HeroSection } from "./components/HeroSection";
-import { FeaturesSection } from "./components/FeaturesSection";
+import { useEffect } from "react";
+import { AnimatedHeader } from "./components/AnimatedHeader";
+import { AnimatedHeroSection } from "./components/AnimatedHeroSection";
+import { AnimatedFeaturesSection } from "./components/AnimatedFeaturesSection";
 import { HowItWorksSection } from "./components/HowItWorksSection";
-import { TechSpecsSection } from "./components/TechSpecsSection";
-import { CTASection } from "./components/CTASection";
+import { AnimatedTechSpecsSection } from "./components/AnimatedTechSpecsSection";
+import { AnimatedCTASection } from "./components/AnimatedCTASection";
 import { Footer } from "./components/Footer";
 import { useDynamicFavicon } from "./hooks/useDynamicFavicon";
 
 export default function App() {
   useDynamicFavicon();
 
+  // Add smooth scroll behavior
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = 'smooth';
+    return () => {
+      document.documentElement.style.scrollBehavior = 'auto';
+    };
+  }, []);
+
   return (
     <div className="min-h-screen">
-      <Header />
-      <HeroSection />
-      <div id="features">
-        <FeaturesSection />
-      </div>
+      <AnimatedHeader />
+      <AnimatedHeroSection />
+      <AnimatedFeaturesSection />
       <div id="how-it-works">
         <HowItWorksSection />
       </div>
-      <div id="tech-specs">
-        <TechSpecsSection />
-      </div>
-      <div id="download">
-        <CTASection />
-      </div>
+      <AnimatedTechSpecsSection />
+      <AnimatedCTASection />
       <Footer />
     </div>
   );
