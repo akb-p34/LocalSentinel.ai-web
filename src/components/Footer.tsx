@@ -1,5 +1,5 @@
 import { Github, Twitter, Mail } from "lucide-react";
-import logo from "figma:asset/724a67c84601f3a5f9b3a1aba2343de62a3decdd.png";
+import logo from "../assets/symbollogowhite.jpg";
 
 export function Footer() {
   return (
