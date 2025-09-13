@@ -1,8 +1,15 @@
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Github, Download, Star, GitFork } from "lucide-react";
+import { useGitHubStats, FALLBACK_STATS } from "../hooks/useGitHubStats";
+import { formatGitHubStat, createLoadingPlaceholder } from "../utils/formatters";
 
 export function CTASection() {
+  const { stats, isLoading, error } = useGitHubStats();
+
+  // Use real stats if available, otherwise fallback to cached/default values
+  const displayStats = stats || FALLBACK_STATS;
+
   return (
     <section className="py-20 bg-gradient-to-br from-blue-900 via-purple-900 to-slate-900 text-white">
       <div className="max-w-4xl mx-auto px-6 text-center">
@@ -62,17 +69,44 @@ export function CTASection() {
         <div className="flex justify-center gap-8 text-sm">
           <div className="flex items-center gap-2">
             <Star className="w-4 h-4" />
-            <span>247 stars</span>
+            <span className={isLoading ? "opacity-70" : ""}>
+              {isLoading && !stats
+                ? createLoadingPlaceholder("stars")
+                : formatGitHubStat(displayStats.stars, "stars")
+              }
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <GitFork className="w-4 h-4" />
-            <span>34 forks</span>
+            <span className={isLoading ? "opacity-70" : ""}>
+              {isLoading && !stats
+                ? createLoadingPlaceholder("forks")
+                : formatGitHubStat(displayStats.forks, "forks")
+              }
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <Download className="w-4 h-4" />
-            <span>1.2k downloads</span>
+            <span className={isLoading ? "opacity-70" : ""}>
+              {isLoading && !stats
+                ? createLoadingPlaceholder("downloads")
+                : formatGitHubStat(displayStats.downloads, "downloads")
+              }
+            </span>
           </div>
         </div>
+
+        {/* Status indicator */}
+        {error && (
+          <div className="mt-4 text-xs text-yellow-300/80">
+            ⚠️ Using cached stats (API temporarily unavailable)
+          </div>
+        )}
+        {stats && !error && (
+          <div className="mt-4 text-xs text-blue-200/60">
+            📊 Updated automatically every 5 minutes
+          </div>
+        )}
 
         <div className="mt-12 p-6 bg-yellow-900/30 border border-yellow-500/30 rounded-lg">
           <p className="text-yellow-100">
