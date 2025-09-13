@@ -52,7 +52,12 @@ export function HeroSection() {
               <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
                 Download LocalSentinel
               </Button>
-              <Button size="lg" variant="outline" className="border-slate-600 text-[rgba(0,0,0,1)] hover:bg-slate-800">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-slate-600 text-[rgba(0,0,0,1)] hover:bg-slate-800"
+                onClick={() => window.open('https://github.com/HarrisHamid/LocalSentinel.ai', '_blank')}
+              >
                 View on GitHub
               </Button>
             </div>

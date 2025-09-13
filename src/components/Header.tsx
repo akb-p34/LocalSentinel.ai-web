@@ -1,15 +1,14 @@
 import { Button } from "./ui/button";
 import { Github, Menu } from "lucide-react";
+import logo from 'figma:asset/724a67c84601f3a5f9b3a1aba2343de62a3decdd.png';
 
 export function Header() {
   return (
     <header className="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-sm border-b border-slate-700">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white text-sm">LS</span>
-            </div>
+          <div className="flex items-center gap-3">
+            <img src={logo} alt="LocalSentinel.ai" className="w-10 h-10" />
             <span className="text-white text-xl">LocalSentinel.ai</span>
           </div>
 
@@ -29,7 +28,12 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" className="text-slate-300 hover:text-white">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-slate-300 hover:text-white"
+              onClick={() => window.open('https://github.com/HarrisHamid/LocalSentinel.ai', '_blank')}
+            >
               <Github className="w-4 h-4 mr-2" />
               GitHub
             </Button>

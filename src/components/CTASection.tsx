@@ -43,7 +43,11 @@ export function CTASection() {
               <p className="text-blue-100 mb-6">
                 View, fork, or contribute to the open-source codebase. MIT licensed and fully transparent.
               </p>
-              <Button variant="outline" className="w-full border-white/30 text-[rgba(21,93,252,1)] hover:bg-white/10">
+              <Button 
+                variant="outline" 
+                className="w-full border-white/30 text-[rgba(21,93,252,1)] hover:bg-white/10"
+                onClick={() => window.open('https://github.com/HarrisHamid/LocalSentinel.ai', '_blank')}
+              >
                 View on GitHub
                 <Github className="w-4 h-4 ml-2" />
               </Button>
