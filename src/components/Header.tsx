@@ -1,6 +1,6 @@
 import { Button } from "./ui/button";
 import { Github, Menu } from "lucide-react";
-import logo from '../assets/symbollogowhite.jpg';
+import logo from '../assets/whitelogo.svg';
 
 export function Header() {
   return (
