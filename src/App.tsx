@@ -5,8 +5,11 @@ import { HowItWorksSection } from "./components/HowItWorksSection";
 import { TechSpecsSection } from "./components/TechSpecsSection";
 import { CTASection } from "./components/CTASection";
 import { Footer } from "./components/Footer";
+import { useDynamicFavicon } from "./hooks/useDynamicFavicon";
 
 export default function App() {
+  useDynamicFavicon();
+
   return (
     <div className="min-h-screen">
       <Header />
