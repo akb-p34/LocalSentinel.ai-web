@@ -1,6 +1,6 @@
 import { Button } from "./ui/button";
 import { Github, Menu } from "lucide-react";
-import logo from 'figma:asset/724a67c84601f3a5f9b3a1aba2343de62a3decdd.png';
+import logo from '../assets/724a67c84601f3a5f9b3a1aba2343de62a3decdd.png';
 
 export function Header() {
   return (
