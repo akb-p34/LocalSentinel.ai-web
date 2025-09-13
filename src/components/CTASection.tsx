@@ -14,11 +14,10 @@ export function CTASection() {
     <section className="py-20 bg-gradient-to-br from-blue-900 via-purple-900 to-slate-900 text-white">
       <div className="max-w-4xl mx-auto px-6 text-center">
         <h2 className="text-3xl lg:text-4xl mb-6">
-          Ready to Secure Your Code Locally?
+          Start scanning in 60 seconds
         </h2>
         <p className="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">
-          Join developers who prioritize privacy and performance. 
-          LocalSentinel keeps your code secure while delivering enterprise-grade analysis.
+          Download. Extract. Run. No installation, no configuration, no cloud account.
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -27,16 +26,16 @@ export function CTASection() {
               <div className="flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full mx-auto mb-4">
                 <Download className="w-8 h-8" />
               </div>
-              <h3 className="text-xl mb-3 text-[rgba(255,255,255,1)]">Download LocalSentinel</h3>
+              <h3 className="text-xl mb-3 text-[rgba(255,255,255,1)]">Windows binary</h3>
               <p className="text-blue-100 mb-6">
-                Get the latest Windows executable (.EXE) with everything bundled for easy installation.
+                Self-contained .exe with embedded AI model. No Python required.
               </p>
               <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                Download v1.0.0
+                localsentinel-v1.0.0.exe
                 <Download className="w-4 h-4 ml-2" />
               </Button>
               <p className="text-xs text-blue-200 mt-2">
-                Compatible with Snapdragon X Elite
+                147 MB • Snapdragon X Elite
               </p>
             </CardContent>
           </Card>
@@ -46,20 +45,20 @@ export function CTASection() {
               <div className="flex items-center justify-center w-16 h-16 bg-purple-600 rounded-full mx-auto mb-4">
                 <Github className="w-8 h-8" />
               </div>
-              <h3 className="text-xl mb-3 text-[rgba(255,255,255,1)]">Explore the Source</h3>
+              <h3 className="text-xl mb-3 text-[rgba(255,255,255,1)]">Build from source</h3>
               <p className="text-blue-100 mb-6">
-                View, fork, or contribute to the open-source codebase. MIT licensed and fully transparent.
+                Clone, build, audit. Full transparency. MIT licensed.
               </p>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="w-full border-white/30 text-[rgba(21,93,252,1)] hover:bg-white/10"
                 onClick={() => window.open('https://github.com/HarrisHamid/LocalSentinel.ai', '_blank')}
               >
-                View on GitHub
+                github.com/LocalSentinel
                 <Github className="w-4 h-4 ml-2" />
               </Button>
               <p className="text-xs text-blue-200 mt-2">
-                Build from source available
+                Python 3.11+ • ONNX Runtime
               </p>
             </CardContent>
           </Card>
@@ -110,8 +109,8 @@ export function CTASection() {
 
         <div className="mt-12 p-6 bg-yellow-900/30 border border-yellow-500/30 rounded-lg">
           <p className="text-yellow-100">
-            <strong>Note:</strong> LocalSentinel is currently optimized for Snapdragon X Elite processors. 
-            Support for other architectures is planned for future releases.
+            <strong>System requirements:</strong> Windows 11 on Snapdragon X Elite.
+            Intel/AMD support coming Q2 2025.
           </p>
         </div>
       </div>

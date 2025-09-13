@@ -15,50 +15,50 @@ export function HeroSection() {
           <div className="space-y-8">
             <div className="space-y-4">
               <Badge variant="secondary" className="bg-blue-900/50 text-blue-100 border-blue-800">
-                <Cpu className="w-4 h-4 mr-2" />
-                Optimized for Snapdragon X Elite
+                <Shield className="w-4 h-4 mr-2" />
+                LOCAL-ONLY
               </Badge>
               
               <h1 className="text-4xl lg:text-6xl text-white leading-tight">
                 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Local AI
+                  Audit locally.
                 </span>
                 <br />
-                Code Auditor
+                Ship with confidence.
               </h1>
               
               <p className="text-xl text-slate-300 max-w-lg">
-                Audit your code for security and compliance issues with AI that runs 
-                entirely on your Snapdragon-powered PC. No data ever leaves your device.
+                AI-powered security scanner that runs 100% offline.
+                Built for Snapdragon X Elite.
               </p>
             </div>
 
             <div className="flex flex-wrap gap-4 text-sm text-slate-400">
               <div className="flex items-center gap-2">
                 <Lock className="w-4 h-4 text-green-400" />
-                100% Local Processing
+                No cloud
               </div>
               <div className="flex items-center gap-2">
                 <Shield className="w-4 h-4 text-blue-400" />
-                Privacy First
+                No telemetry
               </div>
               <div className="flex items-center gap-2">
                 <Github className="w-4 h-4 text-purple-400" />
-                Open Source
+                MIT licensed
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                Download LocalSentinel
+                Download .exe
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
+              <Button
+                size="lg"
+                variant="outline"
                 className="border-slate-600 text-[rgba(0,0,0,1)] hover:bg-slate-800"
                 onClick={() => window.open('https://github.com/HarrisHamid/LocalSentinel.ai', '_blank')}
               >
-                View on GitHub
+                Source code →
               </Button>
             </div>
           </div>
@@ -74,22 +74,25 @@ export function HeroSection() {
               
               <div className="space-y-4">
                 <div className="text-green-400 text-sm font-mono">
-                  $ localsentinel --path ./my-project
+                  $ localsentinel scan ./src
                 </div>
                 <div className="text-slate-300 text-sm">
-                  Project loaded: /home/user/my-project
+                  ✓ Scanned 142 files in 2.3s
                 </div>
                 
                 <div className="grid gap-2 mt-6">
-                  <Button variant="outline" className="justify-start border-blue-600 text-blue-400 hover:bg-blue-950">
-                    🔍 Compliance Check
-                  </Button>
-                  <Button variant="outline" className="justify-start border-slate-600 text-slate-400">
-                    📋 Copy Results
-                  </Button>
-                  <Button variant="outline" className="justify-start border-slate-600 text-slate-400">
-                    ❌ Exit
-                  </Button>
+                  <div className="text-yellow-400 text-sm">
+                    ⚠ 3 vulnerabilities found
+                  </div>
+                  <div className="text-slate-400 text-sm">
+                    → SQL injection risk at db.js:47
+                  </div>
+                  <div className="text-slate-400 text-sm">
+                    → Hardcoded API key at config.js:12
+                  </div>
+                  <div className="text-slate-400 text-sm">
+                    → Missing input validation at api.js:89
+                  </div>
                 </div>
               </div>
             </div>

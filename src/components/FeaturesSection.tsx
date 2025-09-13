@@ -4,39 +4,39 @@ import { Shield, Cpu, FileCode, Download, Zap, Lock } from "lucide-react";
 const features = [
   {
     icon: Lock,
-    title: "100% Local Processing",
-    description: "Your code never leaves your device. All AI inference happens locally on your Snapdragon NPU.",
-    highlight: "Privacy First"
+    title: "Runs fully offline",
+    description: "No network calls. No telemetry. Your code stays on your machine.",
+    highlight: "LOCAL-ONLY"
   },
   {
     icon: Cpu,
-    title: "Snapdragon Optimized",
-    description: "Built specifically for Snapdragon X Elite with ONNX Runtime and Qualcomm QNN Execution Provider.",
-    highlight: "Peak Performance"
+    title: "Snapdragon NPU",
+    description: "Leverages Qualcomm QNN for 10x faster inference than CPU.",
+    highlight: "OPTIMIZED"
   },
   {
     icon: FileCode,
-    title: "IBM Granite AI Model",
-    description: "Powered by IBM Granite-3.1-8B-Instruct for accurate security and compliance analysis.",
-    highlight: "Enterprise Grade"
+    title: "IBM Granite 8B",
+    description: "State-of-the-art code LLM quantized to 4-bit precision.",
+    highlight: "8B PARAMS"
   },
   {
     icon: Zap,
-    title: "Simple Terminal UI",
-    description: "Clean, focused interface with just three buttons: Check, Copy, Exit. No complexity.",
-    highlight: "Developer Friendly"
+    title: "CLI-first",
+    description: "Simple terminal interface. Pipe-friendly. CI/CD ready.",
+    highlight: "DEVELOPER UX"
   },
   {
     icon: Shield,
-    title: "Security & Compliance",
-    description: "Comprehensive scanning for vulnerabilities, compliance issues, and best practice violations.",
-    highlight: "Thorough Analysis"
+    title: "OWASP + CWE",
+    description: "Detects OWASP Top 10 and 200+ CWE vulnerability patterns.",
+    highlight: "COVERAGE"
   },
   {
     icon: Download,
-    title: "Open Source",
-    description: "Fully open-source with permissive licensing. Inspect the code, contribute, or fork it.",
-    highlight: "Transparent"
+    title: "MIT licensed",
+    description: "Free forever. No vendor lock-in. Fork and modify as needed.",
+    highlight: "OPEN SOURCE"
   }
 ];
 
@@ -46,11 +46,11 @@ export function FeaturesSection() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl mb-4">
-            Why Choose LocalSentinel?
+            Built for air-gapped teams
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Unlike cloud-based code auditors, LocalSentinel keeps your intellectual property 
-            secure while delivering enterprise-grade analysis powered by cutting-edge AI.
+            Security-first architecture. Zero external dependencies.
+            Your proprietary code never touches the internet.
           </p>
         </div>
 
