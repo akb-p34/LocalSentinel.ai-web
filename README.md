@@ -1,132 +1,133 @@
-# LocalSentinel.ai - Landing Page
+# LocalSentinel.ai Demo Projects
 
-## = Offline Code Security, Right in VS Code
+## Overview
 
-LocalSentinel.ai is a VS Code extension that performs comprehensive security audits of your codebase entirely offline. This repository contains the landing page for the LocalSentinel.ai project, showcasing our one-click offline code audit solution that runs directly in VS Code.
+This repository contains three demonstration applications specifically designed to showcase LocalSentinel.ai's security vulnerability detection capabilities. Each demo includes intentionally embedded security vulnerabilities categorized by severity (RED/YELLOW) and examples of secure code practices (GREEN).
 
-## < Project Overview
+## Purpose
 
-LocalSentinel.ai provides developers with:
-- **100% Offline Operation**: All scanning and AI analysis happens locally on your machine
-- **One-Click Security Audits**: Simple command to scan your entire repository
-- **AI-Powered Analysis**: Uses Code Llama 7B to explain issues and propose fixes
-- **Clear, Actionable Reports**: Red/Yellow/Green severity ratings with copy-ready fix suggestions
-- **Zero Configuration**: Works out of the box with no setup required
+These demos are designed for presentations to both technical and non-technical audiences, demonstrating:
+- How LocalSentinel detects critical security vulnerabilities
+- The severity-based classification system
+- Real-world security issues in common application types
+- Best practices and secure code examples
 
-## <� Key Features
+## Demo Applications
 
-### Static Analysis + AI Intelligence
-- Multi-language vulnerability detection using Semgrep
-- Python security checks with Bandit
-- Smart regex pattern matching for secrets, debug flags, and security misconfigurations
-- AI-powered triage to reduce false positives and explain findings in plain English
+### 1. E-Commerce Store (ShopLocal)
+**Location:** `demos/demo1-ecommerce/`
 
-### Developer-Friendly Reporting
-- Clean report interface directly in VS Code
-- Jump-to-code functionality for each finding
-- Severity-based grouping (Critical/Warning/Info)
-- Copy-ready fix suggestions for each issue
-- Plain-English repository overview for new team members
+A full-featured online shopping platform with:
+- Product catalog and search
+- Shopping cart functionality
+- User authentication
+- Payment processing
 
-### Privacy-First Design
-- Runs entirely on your local machine
-- Optimized for Snapdragon X and other ARM64 devices
-- No code ever leaves your laptop
-- Works without internet connection
+**Key Vulnerabilities:** SQL injection, hardcoded API keys, command injection
 
-## =� Getting Started
+### 2. Interactive Chess Game
+**Location:** `demos/demo2-chess/`
 
-### Website Development
+A multiplayer chess application with:
+- Real-time gameplay
+- Room-based multiplayer
+- Chat functionality
+- Leaderboard system
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/akb-p34/LocalSentinel.ai-web.git
-   cd LocalSentinel.ai-web
-   ```
+**Key Vulnerabilities:** Remote code execution via eval(), MongoDB injection, JWT secret exposure
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+### 3. Banking Dashboard
+**Location:** `demos/demo3-banking/`
 
-3. **Start development server:**
-   ```bash
-   npm run dev
-   ```
+A financial management interface with:
+- Account overview
+- Transaction history
+- Fund transfers
+- Statement downloads
 
-4. **Build for production:**
-   ```bash
-   npm run build
-   ```
+**Key Vulnerabilities:** Authentication bypass, path traversal, IDOR
 
-### VS Code Extension
+## Security Classification System
 
-The LocalSentinel.ai VS Code extension will be available on the Visual Studio Code Marketplace.
+### 🔴 RED (Critical)
+- Immediate security threats
+- Directly exploitable vulnerabilities
+- Examples: Hardcoded secrets, SQL injection, RCE
 
-**[Download LocalSentinel.ai Extension �](https://marketplace.visualstudio.com/items?itemName=localsentinel)** *(Coming Soon)*
+### 🟡 YELLOW (Warning)
+- Security weaknesses that should be addressed
+- Potential attack vectors when combined
+- Examples: Weak cryptography, missing CSRF protection
 
-## =� Demo & Presentation
+### ✅ GREEN (Secure)
+- Best practices and secure implementations
+- Code that follows security standards
+- Examples: Parameterized queries, bcrypt hashing, proper session management
 
-View our slide deck and demo materials:
-- [Product Demo Video](#) *(Coming Soon)*
-- [Technical Presentation](#) *(Coming Soon)*
-- [Sample Security Report](#) *(Coming Soon)*
+## Setup Instructions
 
-## =� Technology Stack
+Each demo can be run independently:
 
-### Landing Page
-- **Framework**: React 18 with TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **UI Components**: Shadcn/ui
-- **Deployment**: Vercel
+```bash
+# Navigate to a demo directory
+cd demos/demo1-ecommerce
 
-### VS Code Extension (Core Product)
-- **Static Analysis**: Semgrep, Bandit
-- **AI Model**: Code Llama 7B (quantized for local execution)
-- **Runtime**: llama.cpp for efficient inference
-- **Platform Support**: Windows ARM64, macOS, Linux
+# Install dependencies
+npm install
 
-## =� Use Cases
+# Run the application
+npm start
+```
 
-- **Security Audits**: Find vulnerabilities before they reach production
-- **Code Reviews**: Automated security checks in your PR workflow
-- **Onboarding**: Help new developers understand codebases quickly
-- **Compliance**: Ensure code meets security standards
-- **Education**: Learn about security issues with clear explanations
+## Running LocalSentinel Scan
 
-## <� Target Audience
+To scan any demo with LocalSentinel:
 
-- Software development teams prioritizing security
-- Organizations with strict data privacy requirements
-- Developers working with sensitive codebases
-- Teams using Qualcomm Snapdragon X devices
-- Anyone wanting fast, private code security analysis
+1. Open the demo folder in VS Code
+2. Install the LocalSentinel.ai VS Code extension
+3. Run the scan command: `LocalSentinel: Scan Current Project`
+4. Review the categorized findings in the VS Code panel
 
-## <� Awards & Recognition
+## Important Note
 
-Built for the Qualcomm Snapdragon X Hackathon, optimized for ARM64 architecture and edge computing.
+⚠️ **These applications contain intentional security vulnerabilities for demonstration purposes only. DO NOT deploy these applications to production environments or use any of the vulnerable code patterns in real applications.**
 
-## =� License
+## Project Structure
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
+demos/
+├── demo1-ecommerce/     # E-commerce platform demo
+│   ├── backend/         # Node.js/Express backend
+│   ├── frontend/        # React frontend
+│   └── README.md        # Demo-specific instructions
+├── demo2-chess/         # Chess game demo
+│   ├── backend/         # Node.js/MongoDB backend
+│   ├── src/            # React game frontend
+│   └── README.md        # Demo-specific instructions
+├── demo3-banking/       # Banking dashboard demo
+│   ├── backend/         # Node.js/PostgreSQL backend
+│   ├── frontend/        # React dashboard
+│   └── README.md        # Demo-specific instructions
+└── demo-projects-plan.md # Detailed vulnerability documentation
 
-## > Contributing
+```
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+## Presentation Guidelines
 
-## =� Contact
+1. **Start with UI** - Show the working application first
+2. **Point out visible bugs** - Establish credibility with obvious issues
+3. **Run LocalSentinel scan** - Demonstrate the detection process
+4. **Review findings** - Walk through RED → YELLOW → GREEN classifications
+5. **Show remediation** - Highlight fix suggestions
 
-- **Website**: [localsentinel.ai](https://localsentinel.ai)
-- **Email**: contact@localsentinel.ai
-- **GitHub**: [@LocalSentinel](https://github.com/LocalSentinel)
+## Key Features to Emphasize
 
-## =O Acknowledgments
+- **100% Local Processing** - No code leaves your machine
+- **AI-Powered Analysis** - Contextual understanding, not just pattern matching
+- **Severity Prioritization** - Focus on what matters most
+- **Actionable Fixes** - Copy-paste remediation code
+- **VS Code Integration** - Works in your existing workflow
 
-- Built with React and Vite
-- UI components from [shadcn/ui](https://ui.shadcn.com/)
-- Optimized for Qualcomm Snapdragon X platform
+## License
 
----
-
-**LocalSentinel.ai** - *Your code's security sentinel, always offline, always private.*
+This project is for demonstration purposes only. The vulnerable code patterns are intentionally included for educational purposes and should never be used in production applications.

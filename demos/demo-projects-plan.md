@@ -52,17 +52,18 @@ Three demonstration projects designed to showcase LocalSentinel's vulnerability 
    - Example: `res.status(500).json({ error: err.stack })`
    - LocalSentinel Detection: "Information disclosure: Stack traces exposed in production"
 
-#### 🟢 GREEN (Info - 2 vulnerabilities)
-1. **Outdated Dependencies**
-   - File: `package.json`
-   - Issue: Using Express 3.x.x (current is 4.x.x)
-   - LocalSentinel Detection: "Outdated dependency: express@3.21.2 has known vulnerabilities"
+#### ✅ GREEN (Secure - Examples of Best Practices)
+1. **Secure Password Hashing**
+   - File: `backend/auth/secureAuth.js:23`
+   - Best Practice: Using bcrypt with proper salt rounds
+   - Example: `const hashedPassword = await bcrypt.hash(password, 12)`
+   - LocalSentinel Detection: "✅ Secure: Strong password hashing with bcrypt"
 
-2. **Console.log with Sensitive Data**
-   - File: `backend/routes/checkout.js:78`
-   - Issue: Logging full credit card details
-   - Example: `console.log('Processing payment:', creditCardNumber)`
-   - LocalSentinel Detection: "Sensitive data in logs: Credit card information logged"
+2. **Parameterized Database Queries**
+   - File: `backend/routes/secureProducts.js:34`
+   - Best Practice: Using prepared statements to prevent SQL injection
+   - Example: `db.query('SELECT * FROM products WHERE category = ?', [category])`
+   - LocalSentinel Detection: "✅ Secure: Parameterized queries prevent SQL injection"
 
 ### UI Bug (Visual)
 - Shopping cart total doesn't update when quantity changes
@@ -119,17 +120,18 @@ Three demonstration projects designed to showcase LocalSentinel's vulnerability 
    - Example: `Math.random().toString(36).substring(2, 8)`
    - LocalSentinel Detection: "Weak randomness: Math.random() is predictable"
 
-#### 🟢 GREEN (Info - 2 vulnerabilities)
-1. **Missing Security Headers**
-   - File: `backend/server.js:34`
-   - Issue: No Content-Security-Policy or X-Frame-Options
-   - LocalSentinel Detection: "Missing security headers: CSP not configured"
+#### ✅ GREEN (Secure - Examples of Best Practices)
+1. **Proper Input Validation**
+   - File: `src/gameEngine/secureValidator.js:45`
+   - Best Practice: Comprehensive input validation before processing
+   - Example: `if (!movePattern.test(move) || !isValidSquare(from, to)) return false`
+   - LocalSentinel Detection: "✅ Secure: Input validation prevents injection attacks"
 
-2. **Debug Mode Enabled**
-   - File: `frontend/.env.production`
-   - Issue: React debug mode in production
-   - Example: `REACT_APP_DEBUG=true`
-   - LocalSentinel Detection: "Debug mode enabled in production environment"
+2. **Secure Session Management**
+   - File: `backend/auth/sessionHandler.js:67`
+   - Best Practice: Using secure, httpOnly, sameSite cookies
+   - Example: `res.cookie('session', token, { httpOnly: true, secure: true, sameSite: 'strict' })`
+   - LocalSentinel Detection: "✅ Secure: Session cookies properly configured"
 
 ### UI Bug (Visual)
 - Chess pieces sometimes snap to wrong squares on mobile
@@ -186,17 +188,18 @@ Three demonstration projects designed to showcase LocalSentinel's vulnerability 
    - Issue: Account numbers stored in plaintext
    - LocalSentinel Detection: "Sensitive data exposure: Account numbers not encrypted at rest"
 
-#### 🟢 GREEN (Info - 2 vulnerabilities)
-1. **Information Leakage in API Responses**
-   - File: `backend/routes/users.js:89`
-   - Issue: User enumeration possible through different error messages
-   - Example: "User not found" vs "Invalid password"
-   - LocalSentinel Detection: "Information disclosure: User enumeration possible"
+#### ✅ GREEN (Secure - Examples of Best Practices)
+1. **Secure API Key Storage**
+   - File: `backend/config/env.js:12`
+   - Best Practice: Using environment variables for sensitive configuration
+   - Example: `const apiKey = process.env.PAYMENT_API_KEY`
+   - LocalSentinel Detection: "✅ Secure: API keys stored in environment variables"
 
-2. **Deprecated Crypto Library**
-   - File: `backend/utils/encryption.js:3`
-   - Issue: Using deprecated crypto.createCipher
-   - LocalSentinel Detection: "Deprecated API: crypto.createCipher should use createCipheriv"
+2. **Proper Error Handling**
+   - File: `backend/middleware/secureErrorHandler.js:23`
+   - Best Practice: Generic error messages without sensitive information
+   - Example: `res.status(500).json({ error: 'An error occurred. Please try again.' })`
+   - LocalSentinel Detection: "✅ Secure: Error messages don't leak sensitive information"
 
 ### UI Bug (Visual)
 - Transaction amounts don't align properly in table
