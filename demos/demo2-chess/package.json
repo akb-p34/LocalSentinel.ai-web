@@ -1,0 +1,21 @@
+{
+  "name": "knightmove-io",
+  "version": "1.0.0",
+  "description": "Chess Reimagined for the Digital Age - A revolutionary online chess platform",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "reset-games": "node database/reset.js",
+    "seed": "node database/seed.js",
+    "start": "npm run dev"
+  },
+  "keywords": ["chess", "gaming", "multiplayer", "esports"],
+  "author": "KnightMove Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

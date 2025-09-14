@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-knight-dark text-white font-body;
+  }
+
+  h1, h2, h3 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .chess-square-light {
+    @apply bg-knight-board-light;
+  }
+
+  .chess-square-dark {
+    @apply bg-knight-board-dark;
+  }
+
+  .btn-primary {
+    @apply bg-knight-purple hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 hover:scale-105;
+  }
+
+  .btn-gold {
+    @apply bg-knight-gold hover:bg-yellow-600 text-knight-dark font-bold py-2 px-4 rounded-lg transition-all duration-200 hover:scale-105;
+  }
+
+  .card {
+    @apply bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-6;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-knight-purple to-knight-gold bg-clip-text text-transparent;
+  }
+}
+
+/* Chess piece animations */
+.piece-move {
+  transition: all 0.3s ease-in-out;
+}
+
+.piece-capture {
+  animation: capture 0.5s ease-out;
+}
+
+@keyframes capture {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2) rotate(180deg); }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+/* Glowing effect for valid moves */
+.valid-move {
+  position: relative;
+}
+
+.valid-move::after {
+  content: '';
+  position: absolute;
+  inset: 35%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 0.4; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-knight-purple rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-purple-600;
+}
+
+/* Loading animation */
+.chess-loader {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  animation: rotate 2s linear infinite;
+}
+
+.chess-loader::before,
+.chess-loader::after {
+  content: '♔';
+  position: absolute;
+  font-size: 30px;
+}
+
+.chess-loader::before {
+  color: white;
+  top: 0;
+  left: 0;
+}
+
+.chess-loader::after {
+  color: black;
+  bottom: 0;
+  right: 0;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
