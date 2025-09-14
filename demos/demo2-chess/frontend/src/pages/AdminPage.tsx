@@ -23,24 +23,20 @@ const AdminPage: React.FC = () => {
   const [systemLogs, setSystemLogs] = useState<any[]>([])
 
   useEffect(() => {
-    // VULNERABILITY: Admin check only on client side!
     if (!user?.isAdmin && !isAuthed) {
       toast.error('Admin access required!')
-      // But we don't actually redirect them!
     }
 
-    // Fetch fake system logs
     setSystemLogs([
-      { id: 1, level: 'error', message: 'SQL Injection detected in /api/search', time: '2 mins ago' },
-      { id: 2, level: 'warning', message: 'Unusual crypto mining activity detected', time: '5 mins ago' },
-      { id: 3, level: 'critical', message: 'Hardcoded API key exposed: sk-knight...', time: '10 mins ago' },
-      { id: 4, level: 'info', message: 'User uploaded .exe file without validation', time: '15 mins ago' },
-      { id: 5, level: 'error', message: 'XSS payload executed in chat: <script>alert(1)</script>', time: '20 mins ago' }
+      { id: 1, level: 'info', message: 'User authentication successful', time: '2 mins ago' },
+      { id: 2, level: 'warning', message: 'High server load detected', time: '5 mins ago' },
+      { id: 3, level: 'info', message: 'Database backup completed', time: '10 mins ago' },
+      { id: 4, level: 'info', message: 'New user registration', time: '15 mins ago' },
+      { id: 5, level: 'warning', message: 'API rate limit reached for user', time: '20 mins ago' }
     ])
   }, [user])
 
   const handleLogin = () => {
-    // VULNERABILITY: Hardcoded password check in frontend!
     if (password === 'admin123' || password === 'knight2024') {
       setIsAuthed(true)
       toast.success('Welcome to Admin Panel!')
@@ -50,24 +46,17 @@ const AdminPage: React.FC = () => {
   }
 
   const executeSQL = () => {
-    // VULNERABILITY: Direct SQL execution (fake but shows the vulnerability)
     console.log('Executing SQL:', sqlQuery)
-    toast.success(`Executed: ${sqlQuery}`)
-
-    // Fake response
-    if (sqlQuery.toLowerCase().includes('drop')) {
-      toast.error('Database dropped! Just kidding... or am I? 😈')
-    }
+    toast.success(`Query executed successfully`)
   }
 
   const executeEval = () => {
     try {
-      // VULNERABILITY: Direct eval() execution!
       const result = eval(evalCode)
-      toast.success(`Result: ${result}`)
-      console.log('Eval result:', result)
+      toast.success(`Execution completed`)
+      console.log('Result:', result)
     } catch (err: any) {
-      toast.error(`Error: ${err.message}`)
+      toast.error(`Execution failed`)
     }
   }
 
@@ -98,11 +87,6 @@ const AdminPage: React.FC = () => {
               Access Admin Panel
             </button>
 
-            <div className="text-xs text-red-400">
-              <p>🔓 Hint: Check /backend/config/auth.js</p>
-              <p>🔓 Or try: admin123 or knight2024</p>
-              <p>⚠️ No auth check on route!</p>
-            </div>
           </div>
         </motion.div>
       </div>
@@ -122,7 +106,6 @@ const AdminPage: React.FC = () => {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-display text-white">
             Admin Dashboard
-            <span className="text-red-500 text-sm ml-2">(UNSECURED)</span>
           </h1>
           <button
             onClick={() => navigate('/')}
@@ -150,11 +133,11 @@ const AdminPage: React.FC = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* SQL Injection Console */}
-          <div className="card border-red-500/50">
+          {/* SQL Console */}
+          <div className="card">
             <h2 className="text-2xl text-white mb-4 flex items-center gap-2">
-              <ExclamationTriangleIcon className="w-6 h-6 text-red-500" />
-              SQL Console (Direct Execution!)
+              <ServerIcon className="w-6 h-6 text-blue-500" />
+              SQL Console
             </h2>
 
             <textarea
@@ -171,16 +154,13 @@ const AdminPage: React.FC = () => {
               Execute SQL Query
             </button>
 
-            <p className="text-xs text-red-400 mt-2">
-              ⚠️ VULNERABILITY: SQL Injection - Direct query execution!
-            </p>
           </div>
 
-          {/* JavaScript Eval Console */}
-          <div className="card border-red-500/50">
+          {/* JavaScript Console */}
+          <div className="card">
             <h2 className="text-2xl text-white mb-4 flex items-center gap-2">
-              <BugAntIcon className="w-6 h-6 text-yellow-500" />
-              JS Console (eval() RCE!)
+              <BugAntIcon className="w-6 h-6 text-purple-500" />
+              JavaScript Console
             </h2>
 
             <textarea
@@ -197,9 +177,6 @@ const AdminPage: React.FC = () => {
               Execute JavaScript
             </button>
 
-            <p className="text-xs text-yellow-400 mt-2">
-              ⚠️ VULNERABILITY: Remote Code Execution via eval()!
-            </p>
           </div>
         </div>
 
@@ -235,9 +212,9 @@ const AdminPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Exposed Secrets */}
-        <div className="card mt-8 border-red-500/50">
-          <h2 className="text-2xl text-red-400 mb-4">Exposed Secrets & API Keys</h2>
+        {/* Configuration */}
+        <div className="card mt-8">
+          <h2 className="text-2xl text-white mb-4">System Configuration</h2>
 
           <div className="grid md:grid-cols-2 gap-4">
             <div className="p-4 bg-gray-900 rounded">
@@ -258,9 +235,6 @@ const AdminPage: React.FC = () => {
             </div>
           </div>
 
-          <p className="text-xs text-red-400 mt-4">
-            ⚠️ All these secrets are hardcoded and exposed in the client bundle!
-          </p>
         </div>
       </div>
     </div>

@@ -288,24 +288,12 @@ const GamePage: React.FC = () => {
 
             {/* Game Info */}
             <div className="card">
-              <h3 className="text-xl font-bold text-white mb-4">Game Rules</h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex items-center gap-2">
-                  <span className="text-red-500">🐛</span>
-                  <span className="text-gray-300">Black moves first (should be white)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-red-500">🐛</span>
-                  <span className="text-gray-300">Pawns can move 3 squares</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-red-500">🐛</span>
-                  <span className="text-gray-300">Kings can castle after moving</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-red-500">🐛</span>
-                  <span className="text-gray-300">Can undo opponent's moves</span>
-                </div>
+              <h3 className="text-xl font-bold text-white mb-4">Game Info</h3>
+              <div className="space-y-2 text-sm text-gray-300">
+                <p>Time Control: 10+0</p>
+                <p>Rated: Yes</p>
+                <p>Tournament: KnightMove Weekly Blitz</p>
+                <p>Prize Pool: $500</p>
               </div>
             </div>
           </div>

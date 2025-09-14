@@ -13,12 +13,8 @@ const ProfilePage: React.FC = () => {
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
-      // VULNERABILITY: No file type validation!
       setUploadedFile(file)
       toast.success(`Uploaded: ${file.name}`)
-
-      // VULNERABILITY: Accepts any file type including .js, .exe, etc.
-      console.log('File uploaded without validation:', file)
     }
   }
 
@@ -69,17 +65,17 @@ const ProfilePage: React.FC = () => {
                 </p>
               </div>
 
-              {/* Avatar Upload - VULNERABILITY */}
+              {/* Avatar Upload */}
               <div>
                 <label className="text-gray-400">Avatar</label>
                 <input
                   type="file"
                   onChange={handleFileUpload}
                   className="block w-full text-white"
-                  accept="*/*" // VULNERABILITY: Accepts any file!
+                  accept="*/*"
                 />
-                <p className="text-xs text-red-400 mt-1">
-                  ⚠️ Vulnerability: Accepts any file type (.js, .exe, etc.)
+                <p className="text-xs text-gray-400 mt-1">
+                  Max size: 5MB
                 </p>
               </div>
             </div>

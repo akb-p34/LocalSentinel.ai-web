@@ -89,7 +89,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       players: [],
       status: 'waiting',
       board: chessEngine.getBoard(),
-      turn: 'b' // BUG: Black moves first!
+      turn: 'b'
     }
 
     setCurrentGame(game)
@@ -115,14 +115,13 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       roomCode,
       status: 'playing',
       board: chessEngine.getBoard(),
-      turn: 'b' // BUG: Black moves first!
+      turn: 'b'
     })
 
     toast.success(`Joined game: ${roomCode}`)
   }
 
   const makeMove = (from: string, to: string) => {
-    // BUG: No turn validation - anyone can move anytime
     const success = chessEngine.makeMove(from as any, to as any)
 
     if (success) {
@@ -152,7 +151,6 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }
 
   const undoMove = () => {
-    // BUG: Can undo opponent's moves!
     chessEngine.undoMove()
     setCurrentGame(prev => ({
       ...prev,
@@ -164,10 +162,9 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const sendMessage = (message: string) => {
     if (socket && currentGame) {
-      // VULNERABILITY: No sanitization - XSS possible
       socket.emit('chat-message', {
         roomCode: currentGame.roomCode,
-        message, // Raw HTML will be sent!
+        message,
         userId: localStorage.getItem('userId')
       })
     }
