@@ -1,251 +1,384 @@
 # LocalSentinel.ai Demo Projects Plan
 
 ## Overview
-Three demonstration projects designed to showcase LocalSentinel's vulnerability detection capabilities to both technical and non-technical audiences. Each demo includes visible UI functionality and intentionally embedded security vulnerabilities categorized by severity.
+Three demonstration projects designed to showcase LocalSentinel's vulnerability detection capabilities to both technical and non-technical audiences. Each demo includes visually obvious bugs, logic flaws, and security vulnerabilities that are easy to demonstrate live.
 
 ## Demo 1: E-Commerce Store (ShopLocal)
 **Location:** `demos/demo1-ecommerce/`
+**Port:** `localhost:3000`
+**Theme:** Modern, minimalist shopping experience with gradient accents
 
 ### Visible UI Features
-- Product catalog with search functionality
-- Shopping cart with add/remove items
-- User authentication (login/register)
-- Checkout process with payment form
-- Order history page
+- Beautiful product grid with hover effects
+- Interactive shopping cart with live updates
+- Smooth checkout flow with animations
+- User authentication with JWT
+- Order history with receipts
+- Admin panel (intentionally accessible)
+
+### 🎭 Visual & Logic Bugs (Easy to Demo)
+
+#### Obvious Exploits:
+1. **Price Manipulation Glitch**
+   - Open DevTools → Edit price in cart → Backend accepts it
+   - Demo: Change $999 laptop to $0.99
+   - Visual: Price updates everywhere, order completes
+
+2. **Infinite Discount Stacking**
+   - Apply same coupon code multiple times
+   - Demo: "SAVE20" × 5 = 100% off + store credit
+   - Visual: Negative total shows as credit
+
+3. **Negative Quantity Refund**
+   - Set quantity to -5 in cart
+   - Demo: Get $500 refund while keeping items
+   - Visual: Balance increases in real-time
+
+4. **Admin Access Without Login**
+   - Simply navigate to `/admin`
+   - Demo: Full inventory control, user data visible
+   - Visual: Red "ADMIN MODE" banner appears
 
 ### Security Vulnerabilities
 
-#### 🔴 RED (Critical - 3 vulnerabilities)
-1. **SQL Injection in Product Search**
-   - File: `backend/routes/products.js:47`
-   - Issue: Direct string concatenation in SQL query
-   - Example: `SELECT * FROM products WHERE name LIKE '%${searchTerm}%'`
-   - LocalSentinel Detection: "SQL injection vulnerability: User input directly concatenated in query"
+#### 🔴 RED (Critical - 4 vulnerabilities)
+1. **Client-Side Price Validation Only**
+   - File: `backend/routes/checkout.js:45`
+   - Issue: `const total = req.body.cartTotal` (trusts frontend)
+   - Demo: Edit cart total in payload to $0.01
+   - LocalSentinel: "Critical: Price validation performed client-side only"
 
-2. **Hardcoded API Keys**
-   - File: `frontend/config.js:12`
-   - Issue: Stripe API key and AWS credentials in source code
-   - Example: `const STRIPE_KEY = 'sk_live_51A2B3C4D5E6F7G8H9I0J'`
-   - LocalSentinel Detection: "Exposed credentials: API keys found in source code"
+2. **SQL Injection in Product Search**
+   - File: `backend/routes/products.js:23`
+   - Issue: `query = "SELECT * FROM products WHERE name LIKE '%" + search + "%'"`
+   - Demo: Search for `'; DROP TABLE orders; --`
+   - LocalSentinel: "SQL injection vulnerability detected"
 
-3. **Command Injection in Image Upload**
-   - File: `backend/utils/imageProcessor.js:89`
-   - Issue: User filename passed to shell command without sanitization
-   - Example: `exec('convert ${userFile} -resize 200x200 output.jpg')`
-   - LocalSentinel Detection: "Command injection risk: Unsanitized user input in shell command"
+3. **Hardcoded Payment API Keys**
+   - File: `frontend/src/config.js:8`
+   - Issue: `STRIPE_KEY = 'sk_live_actualkey123'`
+   - Demo: Visible in browser source
+   - LocalSentinel: "Exposed payment credentials in frontend code"
+
+4. **eval() in Discount Calculator**
+   - File: `backend/utils/discounts.js:67`
+   - Issue: `eval('price * ' + discountFormula)`
+   - Demo: Inject `1; process.exit()` in discount
+   - LocalSentinel: "Remote code execution via eval()"
 
 #### 🟡 YELLOW (Warning - 3 vulnerabilities)
-1. **Weak Password Hashing**
-   - File: `backend/auth/userModel.js:34`
-   - Issue: Using MD5 for password hashing
-   - Example: `password: crypto.createHash('md5').update(req.body.password).digest('hex')`
-   - LocalSentinel Detection: "Weak cryptography: MD5 is cryptographically broken"
+1. **Weak Password Hashing (MD5)**
+   - File: `backend/auth/users.js:34`
+   - LocalSentinel: "MD5 is cryptographically broken"
 
-2. **Missing CSRF Protection**
-   - File: `backend/app.js:67`
-   - Issue: State-changing operations without CSRF tokens
-   - LocalSentinel Detection: "CSRF vulnerability: POST endpoints lack token validation"
+2. **Missing Rate Limiting**
+   - File: `backend/routes/api.js:12`
+   - LocalSentinel: "No rate limiting on API endpoints"
 
 3. **Verbose Error Messages**
-   - File: `backend/middleware/errorHandler.js:15`
-   - Issue: Stack traces exposed to client
-   - Example: `res.status(500).json({ error: err.stack })`
-   - LocalSentinel Detection: "Information disclosure: Stack traces exposed in production"
+   - File: `backend/middleware/errors.js:8`
+   - LocalSentinel: "Stack traces exposed to client"
 
-#### ✅ GREEN (Secure - Examples of Best Practices)
-1. **Secure Password Hashing**
-   - File: `backend/auth/secureAuth.js:23`
-   - Best Practice: Using bcrypt with proper salt rounds
-   - Example: `const hashedPassword = await bcrypt.hash(password, 12)`
-   - LocalSentinel Detection: "✅ Secure: Strong password hashing with bcrypt"
+#### ✅ GREEN (Secure Examples)
+1. **Parameterized Queries** (in unused file)
+   - File: `backend/db/secure.js:45`
+   - Example: `db.query('SELECT * FROM users WHERE id = ?', [userId])`
 
-2. **Parameterized Database Queries**
-   - File: `backend/routes/secureProducts.js:34`
-   - Best Practice: Using prepared statements to prevent SQL injection
-   - Example: `db.query('SELECT * FROM products WHERE category = ?', [category])`
-   - LocalSentinel Detection: "✅ Secure: Parameterized queries prevent SQL injection"
-
-### UI Bug (Visual)
-- Shopping cart total doesn't update when quantity changes
-- CSS issue: checkout button overlaps with footer on mobile
+2. **Bcrypt Password Hashing** (in comments)
+   - File: `backend/auth/newAuth.js:23`
+   - Example: `await bcrypt.hash(password, 12)`
 
 ---
 
 ## Demo 2: Interactive Chess Game
 **Location:** `demos/demo2-chess/`
+**Port:** `localhost:3001`
+**Theme:** Elegant wood textures with gold accents
 
 ### Visible UI Features
-- Interactive chess board with drag-and-drop pieces
-- Multiplayer mode with room codes
-- Game history and replay feature
-- Leaderboard with player statistics
-- Chat functionality during games
+- Beautiful 3D chess board with shadows
+- Smooth piece animations
+- Multiplayer with room codes
+- Move history sidebar
+- Timer for each player
+- Chat with emojis
+
+### 🎭 Visual & Logic Bugs (Easy to Demo)
+
+#### Chess Rule Violations:
+1. **Black Moves First**
+   - Game starts with black's turn
+   - Demo: Shocking to any chess player
+   - Visual: "Black's Turn" shows immediately
+
+2. **Super Pawns**
+   - All pawns can move 3 squares forward anytime
+   - Demo: Pawn from e2 → e5 in one move
+   - Visual: Green highlight shows 3 squares
+
+3. **Teleporting Kings**
+   - Kings can castle even after moving
+   - Demo: Move king, move back, still castle
+   - Visual: Castle option always highlighted
+
+4. **Multi-Move Exploit**
+   - Rapid clicking allows multiple moves
+   - Demo: Move all pieces before opponent responds
+   - Visual: No turn switching animation
+
+5. **Opponent Move Undo**
+   - Can undo other player's moves
+   - Demo: Undo their checkmate
+   - Visual: Their pieces jump back
 
 ### Security Vulnerabilities
 
-#### 🔴 RED (Critical - 3 vulnerabilities)
-1. **Remote Code Execution via eval()**
-   - File: `src/gameEngine/moveValidator.js:156`
-   - Issue: User input passed to eval() for custom rule validation
-   - Example: `eval('checkMove_' + moveType + '(board, from, to)')`
-   - LocalSentinel Detection: "RCE vulnerability: eval() with user-controlled input"
+#### 🔴 RED (Critical - 4 vulnerabilities)
+1. **eval() in Move Validator**
+   - File: `src/engine/validator.js:89`
+   - Issue: `eval(moveValidationRule)`
+   - Demo: Inject `alert('hacked')` in move
+   - LocalSentinel: "Code injection via eval()"
 
 2. **MongoDB Injection**
-   - File: `backend/db/gameQueries.js:89`
-   - Issue: Unvalidated user input in MongoDB query
-   - Example: `db.games.find({ roomCode: req.body.roomCode })`
-   - LocalSentinel Detection: "NoSQL injection: Unvalidated object passed to MongoDB query"
+   - File: `backend/db/games.js:45`
+   - Issue: `db.find({roomCode: req.body.roomCode})`
+   - Demo: Pass `{$ne: null}` to see all games
+   - LocalSentinel: "NoSQL injection vulnerability"
 
-3. **JWT Secret in Code**
-   - File: `backend/auth/jwt.js:5`
-   - Issue: Hardcoded JWT secret
-   - Example: `const JWT_SECRET = 'chess-game-secret-2024'`
-   - LocalSentinel Detection: "Hardcoded secret: JWT signing key exposed in source"
+3. **JWT Secret Hardcoded**
+   - File: `backend/config/auth.js:5`
+   - Issue: `JWT_SECRET = 'chess123'`
+   - Demo: Forge admin tokens
+   - LocalSentinel: "Hardcoded authentication secret"
+
+4. **Unvalidated File Upload**
+   - File: `backend/routes/avatars.js:34`
+   - Issue: No file type validation
+   - Demo: Upload .js file as avatar
+   - LocalSentinel: "Unrestricted file upload"
 
 #### 🟡 YELLOW (Warning - 3 vulnerabilities)
-1. **XSS in Chat Feature**
-   - File: `frontend/components/GameChat.jsx:45`
-   - Issue: Chat messages rendered without sanitization
-   - Example: `<div dangerouslySetInnerHTML={{__html: message.text}}/>`
-   - LocalSentinel Detection: "XSS vulnerability: User input rendered as HTML"
+1. **XSS in Chat**
+   - File: `frontend/components/Chat.jsx:67`
+   - LocalSentinel: "Unescaped user input in chat"
 
-2. **Insufficient Rate Limiting**
-   - File: `backend/routes/gameRoutes.js:23`
-   - Issue: No rate limiting on move submissions
-   - LocalSentinel Detection: "DoS risk: API endpoints lack rate limiting"
+2. **Weak Room Codes**
+   - File: `backend/utils/rooms.js:12`
+   - LocalSentinel: "Predictable random generation"
 
-3. **Weak Random Number Generation**
-   - File: `backend/utils/roomCodeGenerator.js:12`
-   - Issue: Using Math.random() for room codes
-   - Example: `Math.random().toString(36).substring(2, 8)`
-   - LocalSentinel Detection: "Weak randomness: Math.random() is predictable"
+3. **Missing HTTPS**
+   - File: `backend/server.js:8`
+   - LocalSentinel: "Sensitive data over HTTP"
 
-#### ✅ GREEN (Secure - Examples of Best Practices)
-1. **Proper Input Validation**
-   - File: `src/gameEngine/secureValidator.js:45`
-   - Best Practice: Comprehensive input validation before processing
-   - Example: `if (!movePattern.test(move) || !isValidSquare(from, to)) return false`
-   - LocalSentinel Detection: "✅ Secure: Input validation prevents injection attacks"
+#### ✅ GREEN (Secure Examples)
+1. **Input Validation**
+   - File: `src/validators/moves.js:23`
+   - Example: Regex validation for chess notation
 
-2. **Secure Session Management**
-   - File: `backend/auth/sessionHandler.js:67`
-   - Best Practice: Using secure, httpOnly, sameSite cookies
-   - Example: `res.cookie('session', token, { httpOnly: true, secure: true, sameSite: 'strict' })`
-   - LocalSentinel Detection: "✅ Secure: Session cookies properly configured"
-
-### UI Bug (Visual)
-- Chess pieces sometimes snap to wrong squares on mobile
-- Leaderboard sorting breaks with > 100 players
+2. **Secure Sessions**
+   - File: `backend/sessions/secure.js:45`
+   - Example: httpOnly, secure, sameSite cookies
 
 ---
 
 ## Demo 3: Banking Dashboard
 **Location:** `demos/demo3-banking/`
+**Port:** `localhost:3002`
+**Theme:** Professional blue/gray with trust indicators
 
 ### Visible UI Features
-- Account overview with balance display
-- Transaction history with filtering
-- Fund transfer interface
-- Bill payment scheduling
-- Statement downloads (PDF)
-- Account settings page
+- Clean account overview with charts
+- Transaction history with filters
+- Transfer money interface
+- Bill pay scheduler
+- Statement downloads
+- Settings page
+
+### 🎭 Visual & Logic Bugs (Easy to Demo)
+
+#### Banking Logic Violations:
+1. **Infinite Money Glitch**
+   - Edit balance in DevTools → Backend saves it
+   - Demo: Change $1,000 to $1,000,000,000
+   - Visual: All charts update, "Millionaire!" badge appears
+
+2. **Self-Transfer Doubling**
+   - Transfer from account to same account
+   - Demo: $100 → same account = $200
+   - Visual: Balance doubles with confetti animation
+
+3. **Negative Transfer Theft**
+   - Enter negative amount in transfer
+   - Demo: Transfer -$1000 = steal $1000
+   - Visual: Other account decreases
+
+4. **Interest Rate Hack**
+   - Change savings rate in settings
+   - Demo: Set to 99999% APY
+   - Visual: Interest calculator shows millions
+
+5. **Transaction History Editing**
+   - Click edit on any transaction
+   - Demo: Change "Netflix $15" to "Salary $5000"
+   - Visual: Running balance recalculates
 
 ### Security Vulnerabilities
 
-#### 🔴 RED (Critical - 3 vulnerabilities)
-1. **Authentication Bypass**
-   - File: `backend/middleware/auth.js:78`
-   - Issue: JWT verification can be bypassed with 'none' algorithm
-   - Example: `jwt.verify(token, secret, { algorithms: ['HS256', 'none'] })`
-   - LocalSentinel Detection: "Authentication bypass: JWT 'none' algorithm accepted"
+#### 🔴 RED (Critical - 4 vulnerabilities)
+1. **Direct Balance Manipulation**
+   - File: `backend/routes/accounts.js:78`
+   - Issue: `UPDATE accounts SET balance = ${req.body.balance}`
+   - Demo: POST any balance value
+   - LocalSentinel: "Unvalidated balance update endpoint"
 
-2. **Path Traversal in Statement Download**
-   - File: `backend/routes/documents.js:45`
-   - Issue: User input in file path without validation
-   - Example: `res.sendFile('/statements/' + req.params.filename)`
-   - LocalSentinel Detection: "Path traversal: Unvalidated user input in file path"
+2. **Sequential Account Numbers**
+   - File: `backend/utils/accounts.js:23`
+   - Issue: `newAccountNum = lastAccount + 1`
+   - Demo: Guess other accounts easily
+   - LocalSentinel: "Predictable resource identifiers"
 
-3. **Insecure Direct Object Reference**
-   - File: `backend/routes/accounts.js:67`
-   - Issue: Account access based on user-supplied ID without authorization check
-   - Example: `SELECT * FROM accounts WHERE id = ${req.params.accountId}`
-   - LocalSentinel Detection: "IDOR vulnerability: Missing authorization check"
+3. **Authentication Bypass**
+   - File: `backend/middleware/auth.js:45`
+   - Issue: `if (token === 'undefined') { next() }`
+   - Demo: Remove token to become admin
+   - LocalSentinel: "Authentication bypass vulnerability"
+
+4. **Path Traversal in Statements**
+   - File: `backend/routes/documents.js:34`
+   - Issue: `sendFile(basePath + req.params.file)`
+   - Demo: Download `/etc/passwd`
+   - LocalSentinel: "Path traversal vulnerability"
 
 #### 🟡 YELLOW (Warning - 3 vulnerabilities)
-1. **Session Fixation**
-   - File: `backend/auth/sessionManager.js:34`
-   - Issue: Session ID not regenerated after login
-   - LocalSentinel Detection: "Session fixation: Session ID persists across authentication"
+1. **Weak Password Policy**
+   - File: `frontend/validators/password.js:8`
+   - LocalSentinel: "6 character minimum insufficient"
 
-2. **Insufficient Password Complexity**
-   - File: `frontend/validators/passwordValidator.js:12`
-   - Issue: Allows 6-character passwords
-   - Example: `password.length >= 6`
-   - LocalSentinel Detection: "Weak password policy: Minimum length too short"
+2. **Session Fixation**
+   - File: `backend/sessions/manager.js:45`
+   - LocalSentinel: "Session ID not regenerated"
 
-3. **Missing Encryption for Sensitive Data**
-   - File: `backend/models/Transaction.js:56`
-   - Issue: Account numbers stored in plaintext
-   - LocalSentinel Detection: "Sensitive data exposure: Account numbers not encrypted at rest"
+3. **Plaintext Account Numbers**
+   - File: `backend/models/Account.js:67`
+   - LocalSentinel: "Sensitive data not encrypted"
 
-#### ✅ GREEN (Secure - Examples of Best Practices)
-1. **Secure API Key Storage**
+#### ✅ GREEN (Secure Examples)
+1. **Environment Variables**
    - File: `backend/config/env.js:12`
-   - Best Practice: Using environment variables for sensitive configuration
-   - Example: `const apiKey = process.env.PAYMENT_API_KEY`
-   - LocalSentinel Detection: "✅ Secure: API keys stored in environment variables"
+   - Example: `process.env.DB_PASSWORD`
 
-2. **Proper Error Handling**
-   - File: `backend/middleware/secureErrorHandler.js:23`
-   - Best Practice: Generic error messages without sensitive information
-   - Example: `res.status(500).json({ error: 'An error occurred. Please try again.' })`
-   - LocalSentinel Detection: "✅ Secure: Error messages don't leak sensitive information"
-
-### UI Bug (Visual)
-- Transaction amounts don't align properly in table
-- Date picker overlaps with header on scroll
+2. **Prepared Statements**
+   - File: `backend/db/secure.js:34`
+   - Example: Parameterized queries
 
 ---
 
-## Implementation Notes
+## Visual Design Requirements
 
-### Each Demo Should Include:
-1. **README.md** with:
-   - Setup instructions
-   - List of intentional vulnerabilities (for demo purposes)
-   - LocalSentinel scan instructions
+### Each Demo Must Have:
+1. **Distinct Visual Identity**
+   - E-commerce: Gradient purple/pink, card-based
+   - Chess: Wood textures, elegant serif fonts
+   - Banking: Corporate blue, data visualizations
 
-2. **Dockerfile** for easy deployment
+2. **Professional Polish**
+   - Smooth animations and transitions
+   - Loading states and skeletons
+   - Responsive design
+   - Error states (that leak info)
 
-3. **Sample data** to populate the application
+3. **Demo Mode Indicators**
+   - Floating "DEMO MODE" badge
+   - Reset button in corner
+   - Bug counter showing issues found
 
-4. **Demo script** highlighting:
-   - How to trigger visible UI bugs
-   - How LocalSentinel detects each vulnerability
-   - Remediation suggestions provided by LocalSentinel
+4. **Visual Feedback for Exploits**
+   - Red flash when exploited
+   - Success animations for hacks
+   - Database update notifications
 
-### Presentation Flow:
-1. **Show working application** (30 seconds)
-2. **Point out UI bug** to establish credibility (15 seconds)
-3. **Run LocalSentinel scan** (45 seconds)
-4. **Review findings** organized by severity (2 minutes)
-5. **Show one-click fix suggestions** (30 seconds)
+---
 
-### Key Differentiators to Emphasize:
-- **100% local execution** - no code leaves the machine
-- **AI-powered explanations** - not just pattern matching
-- **Severity-based prioritization** - focus on what matters
-- **Actionable remediation** - copy-paste fixes
-- **VS Code integration** - works where developers work
+## Demo Structure
 
-## Success Metrics:
-- Non-technical judges understand the security risks
-- Technical judges appreciate the depth of analysis
-- Both groups see the value of local-only processing
-- Clear demonstration of Snapdragon X Elite optimization
+### Each Demo Folder Contains:
+```
+demo1-ecommerce/
+├── DEMO.md           # Quick demo checklist
+├── README.md         # Setup instructions
+├── frontend/         # React/Vue/Angular app
+├── backend/          # Node.js/Express API
+├── database/         # SQLite with seed data
+├── vulnerabilities/  # Intentional bugs documentation
+└── docker-compose.yml
+```
 
-## Timeline:
-- Week 1: Implement basic UI for all three demos
-- Week 2: Add security vulnerabilities
-- Week 3: Test with LocalSentinel and refine
-- Week 4: Create presentation materials and practice demos
+### DEMO.md Template:
+```markdown
+# ShopLocal Demo Script
+
+## Pre-Demo Setup
+- [ ] Reset database
+- [ ] Clear browser cache
+- [ ] Open DevTools
+
+## Demo Flow (5 minutes)
+1. [ ] Show normal shopping flow (30s)
+2. [ ] Demo price manipulation bug (45s)
+3. [ ] Show infinite discount stacking (30s)
+4. [ ] Access admin panel without auth (30s)
+5. [ ] Run LocalSentinel scan (60s)
+6. [ ] Review RED/YELLOW/GREEN findings (90s)
+7. [ ] Apply one-click fix (30s)
+8. [ ] Verify bug is fixed (30s)
+
+## Key Points to Emphasize
+- Bugs are visually obvious
+- Real database changes occur
+- LocalSentinel catches subtle & obvious issues
+- Fixes are immediate and verifiable
+```
+
+---
+
+## Implementation Timeline
+
+### Week 1: Core Development
+- Set up project structures
+- Implement basic UI for all three
+- Add visual polish and animations
+
+### Week 2: Bug Implementation
+- Add all logic bugs and exploits
+- Implement security vulnerabilities
+- Create visual feedback systems
+
+### Week 3: Testing & Refinement
+- Test all demo flows
+- Verify LocalSentinel detections
+- Polish UI/UX
+
+### Week 4: Demo Preparation
+- Practice presentations
+- Create backup recordings
+- Prepare offline fallbacks
+
+---
+
+## Success Metrics
+
+### Technical Audience
+- Appreciate sophisticated vulnerabilities
+- Understand AI-powered detection
+- Value local-only processing
+
+### Non-Technical Audience
+- See obvious visual bugs
+- Understand business impact
+- Grasp security importance
+
+### Both Audiences
+- "Wow" moments from exploits
+- Clear before/after with fixes
+- Memorable demonstrations
