@@ -1,19 +1,19 @@
 # LocalSentinel.ai - Landing Page
 
-## = Offline Code Security, Right in VS Code
+## ğŸ›¡ï¸ Offline Code Security, Right in VS Code
 
 LocalSentinel.ai is a VS Code extension that performs comprehensive security audits of your codebase entirely offline. This repository contains the landing page for the LocalSentinel.ai project, showcasing our one-click offline code audit solution that runs directly in VS Code.
 
-## < Project Overview
+## ğŸ“‹ Project Overview
 
 LocalSentinel.ai provides developers with:
 - **100% Offline Operation**: All scanning and AI analysis happens locally on your machine
 - **One-Click Security Audits**: Simple command to scan your entire repository
-- **AI-Powered Analysis**: Uses Code Llama 7B to explain issues and propose fixes
+- **AI-Powered Analysis**: Uses DeepSeek-coder-v2-lite-instruct to explain issues and propose fixes
 - **Clear, Actionable Reports**: Red/Yellow/Green severity ratings with copy-ready fix suggestions
 - **Zero Configuration**: Works out of the box with no setup required
 
-## <¯ Key Features
+## âœ¨ Key Features
 
 ### Static Analysis + AI Intelligence
 - Multi-language vulnerability detection using Semgrep
@@ -34,7 +34,7 @@ LocalSentinel.ai provides developers with:
 - No code ever leaves your laptop
 - Works without internet connection
 
-## =€ Getting Started
+## ğŸš€ Getting Started
 
 ### Website Development
 
@@ -61,18 +61,18 @@ LocalSentinel.ai provides developers with:
 
 ### VS Code Extension
 
-The LocalSentinel.ai VS Code extension will be available on the Visual Studio Code Marketplace.
+The LocalSentinel.ai VS Code extension is available on GitHub releases.
 
-**[Download LocalSentinel.ai Extension ’](https://marketplace.visualstudio.com/items?itemName=localsentinel)** *(Coming Soon)*
+**[Download LocalSentinel.ai Extension](https://github.com/HarrisHamid/LocalSentinel.ai/releases/tag/v0.0.1)**
 
-## =Ê Demo & Presentation
+## ğŸ¥ Demo & Presentation
 
 View our slide deck and demo materials:
 - [Product Demo Video](#) *(Coming Soon)*
 - [Technical Presentation](#) *(Coming Soon)*
 - [Sample Security Report](#) *(Coming Soon)*
 
-## =à Technology Stack
+## ğŸ”§ Technology Stack
 
 ### Landing Page
 - **Framework**: React 18 with TypeScript
@@ -83,11 +83,11 @@ View our slide deck and demo materials:
 
 ### VS Code Extension (Core Product)
 - **Static Analysis**: Semgrep, Bandit
-- **AI Model**: Code Llama 7B (quantized for local execution)
-- **Runtime**: llama.cpp for efficient inference
-- **Platform Support**: Windows ARM64, macOS, Linux
+- **AI Model**: DeepSeek-coder-v2-lite-instruct (optimized for local execution)
+- **Runtime**: LM Studio for efficient inference
+- **Platform Support**: Windows, macOS, Linux (optimized for Snapdragon X Elite)
 
-## =È Use Cases
+## ğŸ’¡ Use Cases
 
 - **Security Audits**: Find vulnerabilities before they reach production
 - **Code Reviews**: Automated security checks in your PR workflow
@@ -95,7 +95,7 @@ View our slide deck and demo materials:
 - **Compliance**: Ensure code meets security standards
 - **Education**: Learn about security issues with clear explanations
 
-## <¯ Target Audience
+## ğŸ‘¥ Target Audience
 
 - Software development teams prioritizing security
 - Organizations with strict data privacy requirements
@@ -103,25 +103,25 @@ View our slide deck and demo materials:
 - Teams using Qualcomm Snapdragon X devices
 - Anyone wanting fast, private code security analysis
 
-## <Æ Awards & Recognition
+## ğŸ† Awards & Recognition
 
-Built for the Qualcomm Snapdragon X Hackathon, optimized for ARM64 architecture and edge computing.
+Built for the Qualcomm NYU Hackathon 2025, optimized for ARM64 architecture and edge computing.
 
-## =İ License
+## ğŸ“„ License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## > Contributing
+## ğŸ¤ Contributing
 
 We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
-## =ç Contact
+## ğŸ“§ Contact
 
 - **Website**: [localsentinel.ai](https://localsentinel.ai)
-- **Email**: contact@localsentinel.ai
-- **GitHub**: [@LocalSentinel](https://github.com/LocalSentinel)
+- **Email**: akbar.pathan034@gmail.com
+- **GitHub**: [@HarrisHamid](https://github.com/HarrisHamid/LocalSentinel.ai)
 
-## =O Acknowledgments
+## ğŸ™ Acknowledgments
 
 - Built with React and Vite
 - UI components from [shadcn/ui](https://ui.shadcn.com/)

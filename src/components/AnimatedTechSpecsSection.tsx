@@ -17,7 +17,7 @@ export function AnimatedTechSpecsSection() {
       title: "AI Engine",
       value: "8B",
       suffix: " params",
-      description: "IBM Granite-3.1-8B-Instruct via ONNX Runtime with Qualcomm QNN EP",
+      description: "DeepSeek-coder-v2-lite-instruct optimized for local execution",
       color: "text-blue-600",
       bgColor: "bg-blue-100 dark:bg-blue-900/50"
     },
@@ -55,8 +55,8 @@ export function AnimatedTechSpecsSection() {
 
   const requirements = [
     {
-      title: "Required",
-      items: ["Snapdragon X Elite Copilot+ PC", "Windows 11 (latest)", "16GB+ RAM", "10GB free storage"]
+      title: "Works On",
+      items: ["Windows, macOS, Linux", "Optimized for Snapdragon X Elite", "16GB+ RAM recommended", "10GB free storage"]
     },
     {
       title: "Recommended",
@@ -82,7 +82,7 @@ export function AnimatedTechSpecsSection() {
               Built for Snapdragon Excellence
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">
-              LocalSentinel is optimized from the ground up for Snapdragon X Elite processors,
+              LocalSentinel works on all major platforms and is specially optimized for Snapdragon X Elite processors,
               leveraging the NPU for lightning-fast AI inference while maintaining complete privacy.
             </p>
 
