@@ -169,8 +169,8 @@ export function useGitHubStats(): UseGitHubStatsReturn {
 
 // Fallback stats for when API fails completely
 export const FALLBACK_STATS: RepoStats = {
-  stars: 247,
-  forks: 34,
-  downloads: 1200,
+  stars: 4,
+  forks: 1,
+  downloads: 2,
   lastUpdated: new Date().toISOString()
 };
